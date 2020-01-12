@@ -1,0 +1,27 @@
+{
+  "name": "front-wizard",
+  "version": "1.0.1",
+  "description": "Yandex SHRI 2020 task 2",
+  "scripts": {
+    "build": "gulp build",
+    "start": "gulp serve",
+    "test": "npm run eslint && npm run stylelint && gulp test"
+  },
+  "author": "Igor Vladimirskiy",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "2.26.7",
+    "gulp": "4.0.2",
+    "gulp-concat": "2.6.1",
+    "gulp-plumber": "1.2.1",
+    "gulp-mocha": "6.0.0",
+    "stylelint": "9.4.x"
+  },
+  "dependencies": {
+    "del": "5.0.0",
+    "eslint": "6.0.1",
+    "gulp-better-rollup": "4.0.1",
+    "gulp-sourcemaps": "2.6.5",
+    "rollup": "1.16.7"
+  }
+}
