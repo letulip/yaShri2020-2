@@ -3,23 +3,24 @@
   "version": "1.0.1",
   "description": "Yandex SHRI 2020 task 2",
   "scripts": {
+    "eslint": "eslint src/js/**/*.js",
     "build": "gulp build",
     "start": "gulp serve",
-    "test": "npm run eslint && npm run stylelint && gulp test"
+    "test": "npm run eslint && gulp test"
   },
   "author": "Igor Vladimirskiy",
   "license": "MIT",
   "devDependencies": {
     "browser-sync": "2.26.7",
-    "gulp": "4.0.2",
-    "gulp-plumber": "1.2.1",
-    "gulp-mocha": "6.0.0",
     "chai": "4.2.0",
-    "stylelint": "9.4.x"
+    "eslint": "6.8.0",
+    "eslint-config-google": "0.14.0",
+    "gulp": "4.0.2",
+    "gulp-mocha": "6.0.0",
+    "gulp-plumber": "1.2.1"
   },
   "dependencies": {
     "del": "5.0.0",
-    "eslint": "6.0.1",
     "gulp-better-rollup": "4.0.1",
     "gulp-sourcemaps": "2.6.5",
     "rollup": "1.16.7"
