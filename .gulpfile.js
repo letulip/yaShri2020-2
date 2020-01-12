@@ -4,7 +4,7 @@ const plumber = require('gulp-plumber');
 const sourcemaps = require('gulp-sourcemaps');
 const rollup = require('gulp-better-rollup');
 const server = require('browser-sync').create();
-const concat = require('gulp-concat');
+const mocha = require('gulp-mocha');
 
 const scripts = () => {
   console.log('scripts');
@@ -12,7 +12,6 @@ const scripts = () => {
   return src([
       'src/js/*.js',
     ])
-    .pipe(concat('script.js'))
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(rollup({}, {
