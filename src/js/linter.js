@@ -1,5 +1,5 @@
 const test = () => {
-  return;
+  return `test`;
 };
 
 export {test};

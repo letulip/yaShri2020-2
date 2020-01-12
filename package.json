@@ -17,7 +17,8 @@
     "eslint-config-google": "0.14.0",
     "gulp": "4.0.2",
     "gulp-mocha": "6.0.0",
-    "gulp-plumber": "1.2.1"
+    "gulp-plumber": "1.2.1",
+    "rollup-plugin-commonjs": "9.2.0"
   },
   "dependencies": {
     "del": "5.0.0",
