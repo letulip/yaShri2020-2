@@ -7,18 +7,24 @@ const warningJson = `{
   "content": [
       {
           "block": "placeholder",
-          "mods": { "size": "m" }
+          "mods": {
+            "size": "m"
+          }
       },
       {
           "elem": "content",
           "content": [
               {
                   "block": "text",
-                  "mods": { "size": "m" }
+                  "mods": {
+                    "size": "m"
+                  }
               },
               {
                   "block": "text",
-                  "mods": { "size": "l" }
+                  "mods": {
+                    "size": "l"
+                  }
               }
           ]
       }

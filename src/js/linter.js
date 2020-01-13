@@ -1,16 +1,29 @@
-const testSizeEqual = (textBlockArray) => {
+let column = 0
 
-  testBlockArray.forEach((block) => {
-    
-  });
+let errors = [];
+
+const checkTextBlocksSizeEquality = (object) => {
+  const contents = object.content[1].content;
+  for (let block = 0; block < contents.length - 1; block++) {
+    if (contents[block].mods.size !== contents[block + 1].mods.size) {
+      return console.log(`WARNING.TEXT_SIZES_SHOULD_BE_EQUAL`);
+    }
+  }
 };
 
 const objectDestruct = (object) => {
+
   if (object.block) {
-    console.log(`block name: ${object.block}`);
+    console.log(`column: ${column} block name: ${object.block}`);
+
+    if (object.block === `warning`) {
+      checkTextBlocksSizeEquality(object);
+    }
   }
 
   if (object.content) {
+    column += 1;
+    console.log(`block content:`);
     object.content.forEach((contentElement) => {
       
       // if (contentElement) {
@@ -18,7 +31,7 @@ const objectDestruct = (object) => {
       // }
 
       if (contentElement.elem) {
-        console.log(`element name: ${contentElement.elem}`);
+        console.log(`column: ${column} element name: ${contentElement.elem}`);
       }
 
       if (typeof contentElement === `object`) {
@@ -28,6 +41,7 @@ const objectDestruct = (object) => {
   } 
 
   if (object.mods) {
+    console.log(`block mods:`);
     // objectDestruct(object.mods);
     console.log(object.mods);
   }
