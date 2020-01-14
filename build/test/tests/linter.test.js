@@ -2,16 +2,38 @@
 
 var chai = require('chai');
 
+const WARNING = `WARNING.`;
+const TEXT_SIZE_CODE = `TEXT_SIZES_SHOULD_BE_EQUAL`;
+const TEXT_SIZE_ERROR = `Тексты в блоке warning должны быть одного размера`;
+
 let column = 0;
 
-const checkTextBlocksSizeEquality = (object) => {
+let errors = [];
+
+const createErrorObject = (errorCode, errorMessage, errorLocationStart, errorLocationEnd) => {
+  const error = {
+    code: `${errorCode}`,
+    error: `${errorMessage}`,
+    location: {
+      start: {
+        column: 1,
+        line: 1
+      },
+      end: {
+        column: 2,
+        line: 22
+      },
+    },
+  };
+  return error;
+};
+
+const checkTextBlocksSizeEquality = (object, errors) => {
   const contents = object.content[1].content;
   for (let block = 0; block < contents.length - 1; block++) {
     if (contents[block].mods.size !== contents[block + 1].mods.size) {
-      return console.log(`WARNING.TEXT_SIZES_SHOULD_BE_EQUAL`);
-    } else {
-      console.log(`equal`);
-      
+      errors.push(createErrorObject(WARNING + TEXT_SIZE_CODE, TEXT_SIZE_ERROR));
+      return;
     }
   }
 };
@@ -22,7 +44,7 @@ const objectDestruct = (object) => {
     console.log(`column: ${column} block name: ${object.block}`);
 
     if (object.block === `warning`) {
-      checkTextBlocksSizeEquality(object);
+      checkTextBlocksSizeEquality(object, errors);
     }
   }
 
@@ -57,11 +79,10 @@ const warningTest = (warningBlock) => {
   const object = JSON.parse(warningBlock);
 
   objectDestruct(object);
-  // console.log(object);
-  // console.log(object.block);
-  // console.log(object.content);
+
+  console.log(errors);
   
-  return [];
+  return errors;
 };
 
 const warningJson = `{
@@ -85,7 +106,7 @@ const warningJson = `{
               {
                   "block": "text",
                   "mods": {
-                    "size": "m"
+                    "size": "l"
                   }
               }
           ]
@@ -106,6 +127,12 @@ const warningResult = [
 
 describe(`Check warning.json test`, () => {
   it(`should return equal warning test result`, () => {
-    chai.assert.equal(warningTest(warningJson), warningResult);
+    chai.assert.deepEqual(warningTest(warningJson), warningResult);
+  });
+});
+
+describe(`Check error object creation`, () => {
+  it(`should return propper error object`, () => {
+    chai.assert.isObject(createErrorObject());
   });
 });

@@ -1,6 +1,6 @@
 import {assert} from 'chai';
 
-import {warningTest} from '../linter';
+import {warningTest, createErrorObject} from '../linter';
 
 const warningJson = `{
   "block": "warning",
@@ -44,6 +44,12 @@ const warningResult = [
 
 describe(`Check warning.json test`, () => {
   it(`should return equal warning test result`, () => {
-    assert.equal(warningTest(warningJson), warningResult);
+    assert.deepEqual(warningTest(warningJson), warningResult);
+  });
+});
+
+describe(`Check error object creation`, () => {
+  it(`should return propper error object`, () => {
+    assert.isObject(createErrorObject());
   });
 });
