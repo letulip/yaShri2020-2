@@ -1,5 +1,6 @@
 const WARNING_CODE = `WARNING.`;
 const TEXT_BLOCK = `text`;
+const BUTTON_BLOCK = `button`;
 const TEXT_SIZE_CODE = `TEXT_SIZES_SHOULD_BE_EQUAL`;
 const TEXT_SIZE_ERROR = `Тексты в блоке warning должны быть одного размера`;
 const BUTTON_SIZE_CODE = `INVALID_BUTTON_SIZE`;
@@ -42,15 +43,22 @@ const findFirstElementIndex = (arr, blockName) => {
   return -1;
 };
 
-const checkWarningPlaceholderSize = (object, errors) => {
+const checkWarningPlaceholderSize = (contentArr) => {
 
 };
 
-const checkWarningButtonPosition = (object, errors) => {
+const checkWarningButtonPosition = (contentArr) => {
 
 };
 
-const checkWarningButtonSize = (object, errors) => {
+const checkWarningButtonSize = (contentArr) => {
+  const firstTextElementIndex = findFirstElementIndex(contentArr, TEXT_BLOCK);
+  const firstButtonElementIndex = findFirstElementIndex(contentArr, BUTTON_BLOCK);
+  const gauge = SIZES[SIZES.indexOf(contentArr[firstTextElementIndex].mods.size) + 1];
+
+  if (contentArr[firstButtonElementIndex].mods.size !== gauge) {
+    return createErrorObject(WARNING_CODE + BUTTON_SIZE_CODE, BUTTON_SIZE_ERROR);
+  }
 
 };
 
@@ -73,4 +81,10 @@ const warningTest = (warningBlock) => {
   return errors;
 };
 
-export {warningTest, createErrorObject, findFirstElementIndex, checkWarningTextSize};
+export {
+  warningTest,
+  createErrorObject,
+  findFirstElementIndex,
+  checkWarningTextSize,
+  checkWarningButtonSize
+};

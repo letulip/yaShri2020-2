@@ -4,8 +4,13 @@ var chai = require('chai');
 
 const WARNING_CODE = `WARNING.`;
 const TEXT_BLOCK = `text`;
+const BUTTON_BLOCK = `button`;
 const TEXT_SIZE_CODE = `TEXT_SIZES_SHOULD_BE_EQUAL`;
 const TEXT_SIZE_ERROR = `Тексты в блоке warning должны быть одного размера`;
+const BUTTON_SIZE_CODE = `INVALID_BUTTON_SIZE`;
+const BUTTON_SIZE_ERROR = `Размер кнопки блока warning должен быть на 1 шаг больше эталонного`;
+
+const SIZES = [`xs`, `s`, `m`, `l`, `xl`];
 
 const createErrorObject = (errorCode, errorMessage, errorLocationStart, errorLocationEnd) => {
   const error = {
@@ -34,16 +39,23 @@ const findFirstElementIndex = (arr, blockName) => {
   return -1;
 };
 
+const checkWarningButtonSize = (contentArr) => {
+  const firstTextElementIndex = findFirstElementIndex(contentArr, TEXT_BLOCK);
+  const firstButtonElementIndex = findFirstElementIndex(contentArr, BUTTON_BLOCK);
+  const gauge = SIZES[SIZES.indexOf(contentArr[firstTextElementIndex].mods.size) + 1];
+
+  if (contentArr[firstButtonElementIndex].mods.size !== gauge) {
+    return createErrorObject(WARNING_CODE + BUTTON_SIZE_CODE, BUTTON_SIZE_ERROR);
+  }
+
+};
+
 const checkWarningTextSize = (contentArr) => {
   const firstTextElementIndex = findFirstElementIndex(contentArr, TEXT_BLOCK);
   const gauge = contentArr[firstTextElementIndex].mods.size;
-  console.log(gauge);
-  
 
   for (let i = firstTextElementIndex + 1; i < contentArr.length; i++) {
     if (contentArr[i].mods.size !== gauge) {
-      console.log(contentArr[i], contentArr[i].mods.size);
-      
       return createErrorObject(WARNING_CODE + TEXT_SIZE_CODE, TEXT_SIZE_ERROR);
     }
   }
@@ -83,7 +95,6 @@ const warningContent = [
   }
 ];
 
-
 const warningTextError = {
       "code": "WARNING.TEXT_SIZES_SHOULD_BE_EQUAL",
       "error": "Тексты в блоке warning должны быть одного размера",
@@ -92,6 +103,15 @@ const warningTextError = {
           "end": { "column": 2, "line": 22 }
       }
   };
+
+const warningButtonSizeError = {
+    "code": "WARNING.INVALID_BUTTON_SIZE",
+    "error": "Размер кнопки блока warning должен быть на 1 шаг больше эталонного",
+    "location": {
+        "start": { "column": 1, "line": 1 },
+        "end": { "column": 2, "line": 22 }
+    }
+};
 
 // describe(`Check warning.json test`, () => {
 //   it(`should return equal warning test result`, () => {
@@ -117,5 +137,11 @@ describe(`Check find first element index function`, () => {
 describe(`Check warning text size function`, () => {
   it(`should return propper error object`, () => {
     chai.assert.deepEqual(checkWarningTextSize(warningContent), warningTextError);
+  });
+});
+
+describe(`Check warning button size function`, () => {
+  it(`should return propper error object`, () => {
+    chai.assert.deepEqual(checkWarningButtonSize(warningContent), warningButtonSizeError);
   });
 });

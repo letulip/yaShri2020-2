@@ -4,7 +4,8 @@ import {
   warningTest,
   createErrorObject,
   findFirstElementIndex,
-  checkWarningTextSize
+  checkWarningTextSize,
+  checkWarningButtonSize
 } from '../linter';
 
 const warningJson = `{
@@ -81,7 +82,6 @@ const warningResult = [
   }
 ];
 
-
 const warningTextError = {
       "code": "WARNING.TEXT_SIZES_SHOULD_BE_EQUAL",
       "error": "Тексты в блоке warning должны быть одного размера",
@@ -90,6 +90,15 @@ const warningTextError = {
           "end": { "column": 2, "line": 22 }
       }
   };
+
+const warningButtonSizeError = {
+    "code": "WARNING.INVALID_BUTTON_SIZE",
+    "error": "Размер кнопки блока warning должен быть на 1 шаг больше эталонного",
+    "location": {
+        "start": { "column": 1, "line": 1 },
+        "end": { "column": 2, "line": 22 }
+    }
+};
 
 // describe(`Check warning.json test`, () => {
 //   it(`should return equal warning test result`, () => {
@@ -115,5 +124,11 @@ describe(`Check find first element index function`, () => {
 describe(`Check warning text size function`, () => {
   it(`should return propper error object`, () => {
     assert.deepEqual(checkWarningTextSize(warningContent), warningTextError);
+  });
+});
+
+describe(`Check warning button size function`, () => {
+  it(`should return propper error object`, () => {
+    assert.deepEqual(checkWarningButtonSize(warningContent), warningButtonSizeError);
   });
 });
