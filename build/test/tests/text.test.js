@@ -20,6 +20,15 @@ const createErrorObject = (errorCode, errorMessage, errorLocationStart, errorLoc
   return error;
 };
 
+const findFirstElementModsIndex = (arr, blockName, mod) => {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].block === blockName && arr[i].mods.type === mod) {
+      return i;
+    }
+  }
+  return -1;
+};
+
 const TEXT_CODE = `TEXT.`;
 const TEXT_BLOCK = `text`;
 const HEADING_1_BLOCK = `h1`;
@@ -32,15 +41,6 @@ const H2_POSITION_CODE = `INVALID_H2_POSITION`;
 const H2_POSITION_ERROR = `Заголовок второго уровня (блок text с модификатором type h2) не может находиться перед заголовком первого уровня на том же или более глубоком уровне вложенности`;
 const H3_POSITION_CODE = `INVALID_H3_POSITION`;
 const H3_POSITION_ERROR = `Заголовок третьего уровня (блок text с модификатором type h3) не может находиться перед заголовком второго уровня на том же или более глубоком уровне вложенности`;
-
-const findFirstElementModsIndex = (arr, blockName, mod) => {
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i].block === blockName && arr[i].mods.type === mod) {
-      return i;
-    }
-  }
-  return -1;
-};
 
 const findH1 = (value) => {
   if (value.block === TEXT_BLOCK && value.mods.type === HEADING_1_BLOCK) {
