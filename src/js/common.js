@@ -85,43 +85,43 @@ const findFirstElementIndex = (arr, blockName) => {
   return -1;
 };
 
-const checkWarningPlaceholderSize = (contentArr) => {
-  const placeholderIndex = findFirstElementIndex(contentArr, PLACEHOLDER_BLOCK);
+// const checkWarningPlaceholderSize = (contentArr) => {
+//   const placeholderIndex = findFirstElementIndex(contentArr, PLACEHOLDER_BLOCK);
 
-  if (!SIZES_PLACEHOLDER.includes(contentArr[placeholderIndex].mods.size)) {
-    return createErrorObject(WARNING_CODE + PLACEHOLDER_SIZE_CODE, PLACEHOLDER_SIZE_ERROR);
-  }
-};
+//   if (!SIZES_PLACEHOLDER.includes(contentArr[placeholderIndex].mods.size)) {
+//     return createErrorObject(WARNING_CODE + PLACEHOLDER_SIZE_CODE, PLACEHOLDER_SIZE_ERROR);
+//   }
+// };
 
-const checkWarningButtonPosition = (contentArr) => {
-  const firstPlaceholderElementIndex = findFirstElementIndex(contentArr, PLACEHOLDER_BLOCK);
-  const firstButtonElementIndex = findFirstElementIndex(contentArr, BUTTON_BLOCK);
+// const checkWarningButtonPosition = (contentArr) => {
+//   const firstPlaceholderElementIndex = findFirstElementIndex(contentArr, PLACEHOLDER_BLOCK);
+//   const firstButtonElementIndex = findFirstElementIndex(contentArr, BUTTON_BLOCK);
 
-  if (firstButtonElementIndex < firstPlaceholderElementIndex) {
-    return createErrorObject(WARNING_CODE + BUTTON_POSITION_CODE, BUTTON_POSITION_ERROR);
-  }
-};
+//   if (firstButtonElementIndex < firstPlaceholderElementIndex) {
+//     return createErrorObject(WARNING_CODE + BUTTON_POSITION_CODE, BUTTON_POSITION_ERROR);
+//   }
+// };
 
-const checkWarningButtonSize = (contentArr) => {
-  const firstTextElementIndex = findFirstElementIndex(contentArr, TEXT_BLOCK);
-  const firstButtonElementIndex = findFirstElementIndex(contentArr, BUTTON_BLOCK);
-  const gauge = SIZES[SIZES.indexOf(contentArr[firstTextElementIndex].mods.size) + 1];
+// const checkWarningButtonSize = (contentArr) => {
+//   const firstTextElementIndex = findFirstElementIndex(contentArr, TEXT_BLOCK);
+//   const firstButtonElementIndex = findFirstElementIndex(contentArr, BUTTON_BLOCK);
+//   const gauge = SIZES[SIZES.indexOf(contentArr[firstTextElementIndex].mods.size) + 1];
 
-  if (contentArr[firstButtonElementIndex].mods.size !== gauge) {
-    return createErrorObject(WARNING_CODE + BUTTON_SIZE_CODE, BUTTON_SIZE_ERROR);
-  }
-};
+//   if (contentArr[firstButtonElementIndex].mods.size !== gauge) {
+//     return createErrorObject(WARNING_CODE + BUTTON_SIZE_CODE, BUTTON_SIZE_ERROR);
+//   }
+// };
 
-const checkWarningTextSize = (contentArr) => {
-  const firstTextElementIndex = findFirstElementIndex(contentArr, TEXT_BLOCK);
-  const gauge = contentArr[firstTextElementIndex].mods.size;
+// const checkWarningTextSize = (contentArr) => {
+//   const firstTextElementIndex = findFirstElementIndex(contentArr, TEXT_BLOCK);
+//   const gauge = contentArr[firstTextElementIndex].mods.size;
 
-  for (let i = firstTextElementIndex + 1; i < contentArr.length; i++) {
-    if (contentArr[i].mods.size !== gauge) {
-      return createErrorObject(WARNING_CODE + TEXT_SIZE_CODE, TEXT_SIZE_ERROR);
-    }
-  }
-};
+//   for (let i = firstTextElementIndex + 1; i < contentArr.length; i++) {
+//     if (contentArr[i].mods.size !== gauge) {
+//       return createErrorObject(WARNING_CODE + TEXT_SIZE_CODE, TEXT_SIZE_ERROR);
+//     }
+//   }
+// };
 
 const findFirstElementModsIndex = (arr, blockName, mod) => {
   for (let i = 0; i < arr.length; i++) {
@@ -171,13 +171,11 @@ const warningTest = (warningBlock) => {
 };
 
 export {
+  SIZES,
+  SIZES_PLACEHOLDER,
   warningTest,
   createErrorObject,
   findFirstElementIndex,
-  checkWarningTextSize,
-  checkWarningButtonSize,
-  checkWarningButtonPosition,
-  checkWarningPlaceholderSize,
   checkTextH1Several,
   checkTextH2Position,
   checkTextH3Position

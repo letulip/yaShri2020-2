@@ -6,6 +6,7 @@ const rollup = require('gulp-better-rollup');
 const server = require('browser-sync').create();
 const mocha = require('gulp-mocha');
 const commonjs = require(`rollup-plugin-commonjs`);
+const concat = require('gulp-concat');
 
 const scripts = () => {
   console.log('scripts');
@@ -13,6 +14,7 @@ const scripts = () => {
   return src([
       'src/js/*.js',
     ])
+    .pipe(concat('linter.js'))
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(rollup({}, {
@@ -23,7 +25,10 @@ const scripts = () => {
 };
 
 const test = () => {
-  return src(['src/js/**/*.test.js'])
+  return src([
+    'src/js/**/*.test.js',
+  ])
+  // .pipe(concat('linter.test.js'))
   .pipe(rollup({
     plugins: [
       commonjs()
