@@ -6,7 +6,8 @@ import {
   findFirstElementIndex,
   checkWarningTextSize,
   checkWarningButtonSize,
-  checkWarningButtonPosition
+  checkWarningButtonPosition,
+  checkWarningPlaceholderSize
 } from '../linter';
 
 const warningJson = `{
@@ -83,7 +84,7 @@ const warningButtonPositionErrorContent = [
     "block": "placeholder",
     "mods": {
         "view": "primary",
-        "size": "m"
+        "size": "xl"
     }
   },
   {
@@ -144,6 +145,15 @@ const warningButtonPositionError = {
   }
 };
 
+const warningPlaceholderSizeError = {
+  "code": "WARNING.INVALID_PLACEHOLDER_SIZE",
+  "error": "Допустимые размеры для блока placeholder в блоке warning (значение модификатора size): s, m, l",
+  "location": {
+      "start": { "column": 1, "line": 1 },
+      "end": { "column": 2, "line": 22 }
+  }
+};
+
 // describe(`Check warning.json test`, () => {
 //   it(`should return equal warning test result`, () => {
 //     assert.deepEqual(warningTest(warningJson), warningResult);
@@ -180,5 +190,11 @@ describe(`Check warning button size function`, () => {
 describe(`Check warning button position function`, () => {
   it(`should return propper error object`, () => {
     assert.deepEqual(checkWarningButtonPosition(warningButtonPositionErrorContent), warningButtonPositionError);
+  });
+});
+
+describe(`Check warning button position function`, () => {
+  it(`should return propper error object`, () => {
+    assert.deepEqual(checkWarningPlaceholderSize(warningButtonPositionErrorContent), warningPlaceholderSizeError);
   });
 });

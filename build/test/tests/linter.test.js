@@ -12,8 +12,11 @@ const BUTTON_SIZE_CODE = `INVALID_BUTTON_SIZE`;
 const BUTTON_SIZE_ERROR = `Размер кнопки блока warning должен быть на 1 шаг больше эталонного`;
 const BUTTON_POSITION_CODE = `INVALID_BUTTON_POSITION`;
 const BUTTON_POSITION_ERROR = `Блок button в блоке warning не может находиться перед блоком placeholder на том же или более глубоком уровне вложенности`;
+const PLACEHOLDER_SIZE_CODE = `INVALID_PLACEHOLDER_SIZE`;
+const PLACEHOLDER_SIZE_ERROR = `Допустимые размеры для блока placeholder в блоке warning (значение модификатора size): s, m, l`;
 
 const SIZES = [`xs`, `s`, `m`, `l`, `xl`];
+const SIZES_PLACEHOLDER = [`s`, `m`, `l`];
 
 const createErrorObject = (errorCode, errorMessage, errorLocationStart, errorLocationEnd) => {
   const error = {
@@ -40,6 +43,14 @@ const findFirstElementIndex = (arr, blockName) => {
     }
   }
   return -1;
+};
+
+const checkWarningPlaceholderSize = (contentArr) => {
+  const placeholderIndex = findFirstElementIndex(contentArr, PLACEHOLDER_BLOCK);
+
+  if (!SIZES_PLACEHOLDER.includes(contentArr[placeholderIndex].mods.size)) {
+    return createErrorObject(WARNING_CODE + PLACEHOLDER_SIZE_CODE, PLACEHOLDER_SIZE_ERROR);
+  }
 };
 
 const checkWarningButtonPosition = (contentArr) => {
@@ -117,7 +128,7 @@ const warningButtonPositionErrorContent = [
     "block": "placeholder",
     "mods": {
         "view": "primary",
-        "size": "m"
+        "size": "xl"
     }
   },
   {
@@ -167,6 +178,15 @@ const warningButtonPositionError = {
   }
 };
 
+const warningPlaceholderSizeError = {
+  "code": "WARNING.INVALID_PLACEHOLDER_SIZE",
+  "error": "Допустимые размеры для блока placeholder в блоке warning (значение модификатора size): s, m, l",
+  "location": {
+      "start": { "column": 1, "line": 1 },
+      "end": { "column": 2, "line": 22 }
+  }
+};
+
 // describe(`Check warning.json test`, () => {
 //   it(`should return equal warning test result`, () => {
 //     assert.deepEqual(warningTest(warningJson), warningResult);
@@ -200,8 +220,14 @@ describe(`Check warning button size function`, () => {
   });
 });
 
-describe(`Check warning button size function`, () => {
+describe(`Check warning button position function`, () => {
   it(`should return propper error object`, () => {
     chai.assert.deepEqual(checkWarningButtonPosition(warningButtonPositionErrorContent), warningButtonPositionError);
+  });
+});
+
+describe(`Check warning button position function`, () => {
+  it(`should return propper error object`, () => {
+    chai.assert.deepEqual(checkWarningPlaceholderSize(warningButtonPositionErrorContent), warningPlaceholderSizeError);
   });
 });

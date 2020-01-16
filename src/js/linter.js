@@ -12,6 +12,7 @@ const PLACEHOLDER_SIZE_CODE = `INVALID_PLACEHOLDER_SIZE`;
 const PLACEHOLDER_SIZE_ERROR = `Допустимые размеры для блока placeholder в блоке warning (значение модификатора size): s, m, l`;
 
 const SIZES = [`xs`, `s`, `m`, `l`, `xl`];
+const SIZES_PLACEHOLDER = [`s`, `m`, `l`];
 
 let column = 0;
 
@@ -45,7 +46,11 @@ const findFirstElementIndex = (arr, blockName) => {
 };
 
 const checkWarningPlaceholderSize = (contentArr) => {
+  const placeholderIndex = findFirstElementIndex(contentArr, PLACEHOLDER_BLOCK);
 
+  if (!SIZES_PLACEHOLDER.includes(contentArr[placeholderIndex].mods.size)) {
+    return createErrorObject(WARNING_CODE + PLACEHOLDER_SIZE_CODE, PLACEHOLDER_SIZE_ERROR);
+  }
 };
 
 const checkWarningButtonPosition = (contentArr) => {
@@ -92,5 +97,6 @@ export {
   findFirstElementIndex,
   checkWarningTextSize,
   checkWarningButtonSize,
-  checkWarningButtonPosition
+  checkWarningButtonPosition,
+  checkWarningPlaceholderSize
 };
