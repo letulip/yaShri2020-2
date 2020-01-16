@@ -5,7 +5,8 @@ import {
   createErrorObject,
   findFirstElementIndex,
   checkWarningTextSize,
-  checkWarningButtonSize
+  checkWarningButtonSize,
+  checkWarningButtonPosition
 } from '../linter';
 
 const warningJson = `{
@@ -71,6 +72,40 @@ const warningContent = [
   }
 ];
 
+const warningButtonPositionErrorContent = [
+  {
+    "block": "button",
+    "mods": {
+      "size": "m"
+    }
+  },
+  {
+    "block": "placeholder",
+    "mods": {
+        "view": "primary",
+        "size": "m"
+    }
+  },
+  {
+    "block": "text",
+    "mods": {
+      "size": "m"
+    }
+  },
+  {
+      "block": "text",
+      "mods": {
+        "size": "m"
+      }
+  },
+  {
+      "block": "text",
+      "mods": {
+        "size": "l"
+      }
+  }
+];
+
 const warningResult = [
   {
       "code": "WARNING.TEXT_SIZES_SHOULD_BE_EQUAL",
@@ -98,6 +133,15 @@ const warningButtonSizeError = {
         "start": { "column": 1, "line": 1 },
         "end": { "column": 2, "line": 22 }
     }
+};
+
+const warningButtonPositionError = {
+  "code": "WARNING.INVALID_BUTTON_POSITION",
+  "error": "Блок button в блоке warning не может находиться перед блоком placeholder на том же или более глубоком уровне вложенности",
+  "location": {
+      "start": { "column": 1, "line": 1 },
+      "end": { "column": 2, "line": 22 }
+  }
 };
 
 // describe(`Check warning.json test`, () => {
@@ -130,5 +174,11 @@ describe(`Check warning text size function`, () => {
 describe(`Check warning button size function`, () => {
   it(`should return propper error object`, () => {
     assert.deepEqual(checkWarningButtonSize(warningContent), warningButtonSizeError);
+  });
+});
+
+describe(`Check warning button position function`, () => {
+  it(`should return propper error object`, () => {
+    assert.deepEqual(checkWarningButtonPosition(warningButtonPositionErrorContent), warningButtonPositionError);
   });
 });
