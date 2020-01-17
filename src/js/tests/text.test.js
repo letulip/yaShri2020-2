@@ -1,10 +1,6 @@
 import {assert} from 'chai';
 
 import {
-  createErrorObject
-} from '../common';
-
-import {
   checkTextH1Several,
   checkTextH2Position,
   checkTextH3Position
